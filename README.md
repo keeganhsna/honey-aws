@@ -161,6 +161,8 @@ Run
 
 add `#include "canohost.h`
 
+ <img width=400px height=400px src="https://i.imgur.com/anYhOEI.png" alt="add include"></a>
+
 and
 
 
@@ -184,7 +186,7 @@ remote_ip, timeString, authctxt->user, password);
 fclose (logFile);
 }
 ```
-
+ <img width=400px height=400px src="https://i.imgur.com/c94GH35.png" alt="add log"></a>
 
 Press `Ctrl+X`, `Y`, `Enter`
 
