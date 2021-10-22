@@ -55,7 +55,9 @@ Select `Amazon Linux 2 AMI (HVM), SSD Volume Type` -> click `Review Instance Lau
 
 Click on the first drop down menu and select `Create a new key pair` -> select `Key pair type` `RSA` -> name `Key pair` name as `honeypotkey`-> Click `Download Keypair`
 
-Congrats! You built your EC2 server!
+> Congrats! You built your EC2 server!
+
+
 
 ### Connecting to your EC2
 
@@ -63,7 +65,9 @@ In your instance dashboard you should see a row created. Instance state should b
 
 Right Click the row -> select `Connect` -> click `SSH client`
 
-####Open command prompt and connect to your instance using your key
+
+
+#### Open command prompt and connect to your instance using your key
 
 On the Mac and open terminal -> insert your path of downloaded key and connect to your EC2
 
@@ -73,11 +77,11 @@ Run this command:
 example:
 `ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
 
-<b> If you're having trouble with this step or using windows, please take a look at this references</b>
-- Connect to AWS EC2 instance via ssh from windows https://www.youtube.com/watch?v=f52IOtTqcP8
-- How do I set up SSH access for an Amazon EC2 instance? https://stackoverflow.com/questions/6394762/how-do-i-set-up-ssh-access-for-an-amazon-ec2-instance
+>If you're having trouble with this step or using windows, please take a look at this references
+>[Youtube - Connect to AWS EC2 instance via ssh from windows](https://www.youtube.com/watch?v=f52IOtTqcP8),
+>[Stackoverflow - How do I set up SSH access for an Amazon EC2 instance?](https://stackoverflow.com/questions/6394762/how-do-i-set-up-ssh-access-for-an-amazon-ec2-instance)
 
-### Setting up Honeypot on your EC2
+## Setting up Honeypot on your EC2
 
 #### Enabling password authentication
 
@@ -96,7 +100,6 @@ Press `Ctrl+X`, `Y`, `Enter`
 Run `sudo systemctl restart sshd`
 
 
-#### Moving AWS ssh port to 222
 
 ##### Modifying AWS Security Group
 
@@ -119,6 +122,8 @@ Input `222` in the Port range  and select `anywhere` then click `save rules`
 eg. image
 
 
+
+#### Moving AWS ssh port to 222
 In your EC2 instance(command prompt):
 Run
 
@@ -146,6 +151,8 @@ Now you must add `-p 222` to connecct
 Congrats! you moved your ssh(port 22 by default) to 222!
 
 
+
+
 ###Creating the Key
 
 `sudo ssh-keygen -A`
@@ -157,11 +164,15 @@ Congrats! you moved your ssh(port 22 by default) to 222!
 `chmod 400 ssh_host_*`
 
 
+
+
 #### Install compliers
 
 In your EC2 server: 
 
 Run `sudo yum install gcc gcc-c++ autoconf automake zlib-devel openssl-devel make -y`
+
+
 
 #### Download openssh
 
@@ -227,7 +238,23 @@ Run
 
 `sudo cp /etc/ssh/ssh_host_* .`
 
+`sudo nano sshd_config`
+
+then insert
+
+```
+HostKey /usr/local/etc/ssh_host_rsa_key
+HostKey /usr/local/etc/ssh_host_dsa_key
+HostKey /usr/local/etc/ssh_host_ecdsa_key
+HostKey /usr/local/etc/ssh_host_ed25519_key
+```
+Press `Ctrl+X`, `Y`, `Enter`
+
 `sudo /home/ec2-user/ssh-source/openssh-8.0p1/sshd -f /usr/local/etc/sshd_config`
+
+
+
+
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
@@ -238,6 +265,4 @@ Run
 See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-- Hat tip to anyone whose code was used
-- Inspiration
 -  Cole, Eric; Northcutt, Stephen. "Honeypots: A Security Manager's Guide to Honeypots".[1]<a name = "honeypot_term"></a>
