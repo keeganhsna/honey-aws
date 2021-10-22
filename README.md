@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+ <img width=400px height=400px src="https://i.imgur.com/Z0LkV99.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">Deploying SSH honeypot using AWS EC2</h3>
@@ -161,7 +161,7 @@ Run
 
 add `#include "canohost.h`
 
- <img width=400px height=400px src="https://i.imgur.com/anYhOEI.png" alt="add include"></a>
+ <img width=600px height=400px src="https://i.imgur.com/anYhOEI.png" alt="add include"></a>
 
 and
 
@@ -186,7 +186,7 @@ remote_ip, timeString, authctxt->user, password);
 fclose (logFile);
 }
 ```
- <img width=400px height=400px src="https://i.imgur.com/c94GH35.png" alt="add log"></a>
+ <img width=600px height=400px src="https://i.imgur.com/c94GH35.png" alt="add log"></a>
 
 Press `Ctrl+X`, `Y`, `Enter`
 
