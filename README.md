@@ -23,8 +23,6 @@
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
@@ -68,7 +66,7 @@ Right Click the row -> select `Connect` -> click `SSH client`
 On the Mac and open terminal -> insert your path of downloaded key and connect to your EC2
 
 Run this command:
-`chmod 400 honeypotkey.cer`
+`400 honeypotkey.cer`
 
 example:
 `ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
@@ -79,6 +77,7 @@ example:
 
 ## Setting up Honeypot on your EC2
 
+--------------------------------------Don't do this--------------------------------------------
 ### Enabling password authentication
 
 Excute these commands on your EC2 Server:
@@ -95,6 +94,7 @@ Press `Ctrl+X`, `Y`, `Enter`
 
 Run `sudo systemctl restart sshd`
 
+--------------------------------------Don't do this END--------------------------------------------
 
 
 ### Modifying AWS Security Group
@@ -119,34 +119,6 @@ eg. image
 
 
 
-### Moving AWS ssh port to 222
-In your EC2 instance(command prompt):
-Run
-
-`sudo cp /etc/ssh/sshd_config /etc/ssh_sshd_config.bak2`
-
-`sudo nano /etc/ssh/sshd_config`
-
-Edit  `#Port 22` to `Port 222`
-
-Press `Ctrl+X`, `Y`, `Enter`
-
-Run `sudo systemctl restart ssh`
-
-<b> Now when you're login to ssh you must let computer know you're connecting through port 222</b>
-example/
-
-if you used this to connect to your EC2 instance previously:
-
-`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
-
-Now you must add `-p 222` to connecct
-
-`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com -p 222`
-
-Congrats! you moved your ssh(port 22 by default) to 222!
-
-
 
 
 ### Creating the Key
@@ -155,9 +127,7 @@ Congrats! you moved your ssh(port 22 by default) to 222!
 
 `cd /etc/ssh`
 
-`chmod 400 authorized_keys `
-
-`chmod 400 ssh_host_*`
+`sudo chmod 400 ssh_host_*`
 
 
 
@@ -175,8 +145,9 @@ Run `sudo yum install gcc gcc-c++ autoconf automake zlib-devel openssl-devel mak
 In your EC2 server: 
 
 Run 
-
-`mkdir ssh-source`, `cd ssh-source`
+`cd ~`
+`mkdir ssh-source` 
+`cd ssh-source`
 
 `wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz`
 
@@ -184,13 +155,6 @@ Run
 
 `cd openssh-8.0p1/`
 
-`./configure`
-^This might take couple minutes to complete
-
-`make`
-
-
-`cd /home/ec2-user/ssh-source/openssh-8.0p1/`
 `sudo cp auth-passwd.c auth-passwd.c.orig`
 
 `sudo nano auth-passwd.c`
@@ -232,19 +196,49 @@ Run
 
 `cd /usr/local/etc`
 
-`sudo cp /etc/ssh/ssh_host_* .`
+`sudo cp /etc/ssh_host_* .`
 
 `sudo nano sshd_config`
 
-then insert
 
-```
-HostKey /usr/local/etc/ssh_host_rsa_key
-HostKey /usr/local/etc/ssh_host_dsa_key
-HostKey /usr/local/etc/ssh_host_ecdsa_key
-HostKey /usr/local/etc/ssh_host_ed25519_key
-```
+Edit  `#Port 22` to `Port 22`
+
+`sudo cp sshd_config sshd_config.bak`
+`sudo nano sshd_config`
+
+
+`sudo cp sshd_config /usr/local/etc`
+
+
+### Moving AWS ssh port to 222
+In your EC2 instance(command prompt):
+Run
+
+`sudo cp /etc/ssh/sshd_config /etc/ssh_sshd_config.bak2`
+
+`sudo nano /etc/ssh/sshd_config`
+
+Edit  `#Port 22` to `Port 222`
+
 Press `Ctrl+X`, `Y`, `Enter`
+
+<b> Now when you're login to ssh you must let computer know you're connecting through port 222</b>
+example/
+
+if you used this to connect to your EC2 instance previously:
+
+`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
+
+Now you must add `-p 222` to connecct
+
+`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com -p 222`
+
+Congrats! you moved your ssh(port 22 by default) to 222!
+
+
+
+## Run the honeypot and look for result
+Connect to port 222 then run this command:
 
 `sudo /home/ec2-user/ssh-source/openssh-8.0p1/sshd -f /usr/local/etc/sshd_config`
 
@@ -252,13 +246,9 @@ Press `Ctrl+X`, `Y`, `Enter`
 
 
 
-## ⛏️ Built Using <a name = "built_using"></a>
-
-
 ## ✍️ Authors <a name = "authors"></a>
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
+- Keegan - Idea & Initial work
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 -  Cole, Eric; Northcutt, Stephen. "Honeypots: A Security Manager's Guide to Honeypots".[1]<a name = "honeypot_term"></a>
