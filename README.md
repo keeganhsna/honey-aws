@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=400px height=400px src="" alt="Project logo"></a>
+ <img width=400px height=400px src="https://i.imgur.com/bFQ9FPk.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">Deploying SSH honeypot using AWS EC2</h3>
