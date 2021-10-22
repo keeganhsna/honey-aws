@@ -225,18 +225,17 @@ Edit  `#Port 22` to `Port 222`
 Press `Ctrl+X`, `Y`, `Enter`
 
 <b> Now when you're login to ssh you must let computer know you're connecting through port 222</b>
-example/
+>example
 
-if you used this to connect to your EC2 instance previously:
+>if you used this to connect to your EC2 instance previously:
 
-`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
+>`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
 
-Now you must add `-p 222` to connecct
+>Now you must add `-p 222` to connecct
 
-`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com -p 222`
+>`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com -p 222`
 
-Congrats! you moved your ssh(port 22 by default) to 222!
-
+**Congrats! you moved your ssh(port 22 by default) to 222!**
 
 
 ## Run the honeypot and look for result
