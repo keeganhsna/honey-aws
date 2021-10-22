@@ -65,10 +65,6 @@ In your instance dashboard you should see a row created. Instance state should b
 
 Right Click the row -> select `Connect` -> click `SSH client`
 
-
-
-#### Open command prompt and connect to your instance using your key
-
 On the Mac and open terminal -> insert your path of downloaded key and connect to your EC2
 
 Run this command:
@@ -83,7 +79,7 @@ example:
 
 ## Setting up Honeypot on your EC2
 
-#### Enabling password authentication
+### Enabling password authentication
 
 Excute these commands on your EC2 Server:
 
@@ -101,7 +97,7 @@ Run `sudo systemctl restart sshd`
 
 
 
-##### Modifying AWS Security Group
+### Modifying AWS Security Group
 
 In your AWS Website EC2 Console:
 
@@ -123,7 +119,7 @@ eg. image
 
 
 
-#### Moving AWS ssh port to 222
+### Moving AWS ssh port to 222
 In your EC2 instance(command prompt):
 Run
 
@@ -153,7 +149,7 @@ Congrats! you moved your ssh(port 22 by default) to 222!
 
 
 
-###Creating the Key
+### Creating the Key
 
 `sudo ssh-keygen -A`
 
@@ -166,7 +162,7 @@ Congrats! you moved your ssh(port 22 by default) to 222!
 
 
 
-#### Install compliers
+### Install compliers
 
 In your EC2 server: 
 
@@ -174,7 +170,7 @@ Run `sudo yum install gcc gcc-c++ autoconf automake zlib-devel openssl-devel mak
 
 
 
-#### Download openssh
+### Download openssh
 
 In your EC2 server: 
 
