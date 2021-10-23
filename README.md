@@ -66,7 +66,7 @@ Right Click the row -> select `Connect` -> click `SSH client`
 On the Mac and open terminal -> insert your path of downloaded key and connect to your EC2
 
 Run this command:
-`400 honeypotkey.cer`
+`chmod 400 honeypotkey.cer`
 
 example:
 `ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
@@ -146,7 +146,9 @@ In your EC2 server:
 
 Run 
 `cd ~`
+
 `mkdir ssh-source` 
+
 `cd ssh-source`
 
 `wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz`
@@ -159,7 +161,7 @@ Run
 
 `sudo nano auth-passwd.c`
 
-add `#include "canohost.h`
+add `#include "canohost.h"`
 
  <img width=600px height=400px src="https://i.imgur.com/anYhOEI.png" alt="add include"></a>
 
@@ -196,20 +198,17 @@ Run
 
 `make`
 
+`sudo cp sshd_config /usr/local/etc`
+
 `cd /usr/local/etc`
 
 `sudo cp /etc/ssh_host_* .`
 
 `sudo nano sshd_config`
 
-
 Edit  `#Port 22` to `Port 22`
 
-`sudo cp sshd_config sshd_config.bak`
-`sudo nano sshd_config`
 
-
-`sudo cp sshd_config /usr/local/etc`
 
 
 ### Moving AWS ssh port to 222
