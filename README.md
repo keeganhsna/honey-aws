@@ -31,7 +31,7 @@
 `In computer terminology, a honeypot is a computer security mechanism set to detect, deflect, or, in some manner, counteract attempts at unauthorized use of information systems. Generally, a honeypot consists of data (for example, in a network site) that appears to be a legitimate part of the site and contain information or resources of value to attackers. It is actually isolated, monitored, and capable of blocking or analyzing the attackers. This is similar to police sting operations, colloquially known as "baiting" a suspect.`[[1]](#honeypot_term)
 
 
-<b> This tutorial will intentially creating a vulnerable EC2 server, do not deploy this on your production server!! </b>
+<b> This tutorial will intentionally create a vulnerable EC2 server, do not deploy this on your production server!! </b>
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 No coding exprience required! We will be using the Free tier AWS EC2 server to see ssh authentication attempts.
@@ -66,12 +66,15 @@ Right Click the row -> select `Connect` -> click `SSH client`
 On the Mac and open terminal -> insert your path of downloaded key and connect to your EC2
 
 Run this command:
-`chmod 400 honeypotkey.cer`
+```sh
+chmod 400 honeypotkey.cer
+```
+For example:
+```sh
+ssh -i honeypotkey.cer ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com
+```
 
-example:
-`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
-
->If you're having trouble with this step or using windows, please take a look at this references
+>If you're having trouble with this step or using Windows, please take a look at this references
 >[Youtube - Connect to AWS EC2 instance via ssh from windows](https://www.youtube.com/watch?v=f52IOtTqcP8),
 >[Stackoverflow - How do I set up SSH access for an Amazon EC2 instance?](https://stackoverflow.com/questions/6394762/how-do-i-set-up-ssh-access-for-an-amazon-ec2-instance)
 
@@ -81,18 +84,20 @@ example:
 ### Enabling password authentication
 
 Excute these commands on your EC2 Server:
-
-`sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak`
-
-`sudo nano /etc/ssh/sshd_config`
-
+```sh
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+sudo nano /etc/ssh/sshd_config
+```
 Press `Ctrl+W`, put `PasswordAuthentication no`, `Enter`
 
 Change `PasswordAuthentication no` to `PasswordAuthentication yes`
 
 Press `Ctrl+X`, `Y`, `Enter`
 
-Run `sudo systemctl restart sshd`
+To restart your SSH server with the changed configuration, run:
+```sh
+sudo systemctl restart sshd
+```
 
 --------------------------------------Don't do this END--------------------------------------------
 
@@ -103,7 +108,7 @@ In your AWS Website EC2 Console:
 
 Click on the running EC2 instance -> It should highlight the row
 
-In bottom havles of the screen, click security
+In the bottom half of the screen, click security
 
 `Details|**Security**|Networking|Storage| Status checks| Monitoring| Tags`
 
@@ -121,18 +126,14 @@ eg. image
 
 
 
-### Creating the Key
+### Creating the SSH Host Keys
+```sh
+sudo ssh-keygen -A
+cd /etc/ssh
+sudo chmod 400 ssh_host_*
+```
 
-`sudo ssh-keygen -A`
-
-`cd /etc/ssh`
-
-`sudo chmod 400 ssh_host_*`
-
-
-
-
-### Install compliers
+### Install Compilers, Libraries
 
 In your EC2 server: 
 
@@ -140,26 +141,21 @@ Run `sudo yum install gcc gcc-c++ autoconf automake zlib-devel openssl-devel mak
 
 
 
-### Download openssh
+### Download OpenSSH
 
 In your EC2 server: 
 
-Run 
-`cd ~`
-
-`mkdir ssh-source` 
-
-`cd ssh-source`
-
-`wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz`
-
-`tar -xvzf openssh-8.0p1.tar.gz`
-
-`cd openssh-8.0p1/`
-
-`sudo cp auth-passwd.c auth-passwd.c.orig`
-
-`sudo nano auth-passwd.c`
+Run:
+```sh
+cd ~
+mkdir ssh-source
+cd ssh-source
+wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.gz
+tar -xvzf openssh-8.0p1.tar.gz
+cd openssh-8.0p1/
+sudo cp auth-passwd.c auth-passwd.c.orig
+sudo nano auth-passwd.c
+```
 
 add `#include "canohost.h"`
 
@@ -192,19 +188,15 @@ fclose (logFile);
 
 Press `Ctrl+X`, `Y`, `Enter`
 
-Run
-
-`./configure`
-
-`make`
-
-`sudo cp sshd_config /usr/local/etc`
-
-`cd /usr/local/etc`
-
-`sudo cp /etc/ssh_host_* .`
-
-`sudo nano sshd_config`
+Run:
+```sh
+./configure
+make
+sudo cp sshd_config /usr/local/etc
+cd /usr/local/etc
+sudo cp /etc/ssh_host_* .
+sudo nano sshd_config
+```
 
 Edit  `#Port 22` to `Port 22`
 
@@ -212,13 +204,11 @@ Edit  `#Port 22` to `Port 22`
 
 
 ### Moving AWS ssh port to 222
-In your EC2 instance(command prompt):
-Run
-
-`sudo cp /etc/ssh/sshd_config /etc/ssh_sshd_config.bak2`
-
-`sudo nano /etc/ssh/sshd_config`
-
+In your EC2 instance(command prompt), run:
+```sh
+sudo cp /etc/ssh/sshd_config /etc/ssh_sshd_config.bak2
+sudo nano /etc/ssh/sshd_config
+```
 Edit  `#Port 22` to `Port 222`
 
 Press `Ctrl+X`, `Y`, `Enter`
@@ -229,14 +219,14 @@ Run `sudo systemctl restart sshd`
 <b> Now when you're login to ssh you must let computer know you're connecting through port 222</b>
 >example
 
->if you used this to connect to your EC2 instance previously:
-
->`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com`
-
->Now you must add `-p 222` to connecct
-
->`ssh -i "honeypotkey.cer" ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com -p 222`
-
+If you used this to connect to your EC2 instance previously:
+```sh
+ssh -i "honeypotkey.cer ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com
+```
+Now you must add `-p 222` to connect:
+```sh
+ssh -i honeypotkey.cer ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.com -p 222
+```
 
 **Congrats! you moved your ssh(port 22 by default) to 222!**
 
