@@ -25,3 +25,4 @@ sudo patch -s -p0 < /home/ec2-user/honey-aws/patchlocalssh.patch
 cd /etc/ssh
 sudo patch -s -p0 < /home/ec2-user/honey-aws/patchetcsshd.patch
 
+sudo systemctl restart sshd
