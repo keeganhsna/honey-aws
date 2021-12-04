@@ -1,4 +1,11 @@
-17c17
-< Port 222
----
-> #Port 22
+--- sshd_config.bak	2021-12-04 23:27:06.196962887 +0000
++++ sshd_config	2021-12-04 23:27:15.161312711 +0000
+@@ -10,7 +10,7 @@
+ # possible, but leave them commented.  Uncommented options override the
+ # default value.
+ 
+-#Port 22
++Port 22
+ #AddressFamily any
+ #ListenAddress 0.0.0.0
+ #ListenAddress ::
