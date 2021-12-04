@@ -13,11 +13,15 @@ wget -c https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.0p1.tar.g
 tar -xvzf openssh-8.0p1.tar.gz
 cd openssh-8.0p1/
 sudo cp auth-passwd.c auth-passwd.c.orig
-patch -s -p0 < patch.patch
+sudo patch -s -p0 < patch.patch
 ./configure
 make
 sudo cp sshd_config /usr/local/etc
+
 cd /usr/local/etc
 sudo cp /etc/ssh/ssh_host_* .
+sudo patch -s -p0 < /home/ec2-user/honey-aws/patchlocalssh.patch
 
+cd /etc/ssh
+sudo patch -s -p0 < /home/ec2-user/honey-aws/patchetcsshd.patch
 
