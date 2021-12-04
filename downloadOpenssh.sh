@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 sudo ssh-keygen -A
 cd /etc/ssh
 sudo chmod 400 ssh_host_*
