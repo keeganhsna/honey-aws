@@ -18,6 +18,6 @@ patch -s -p0 < patch.patch
 make
 sudo cp sshd_config /usr/local/etc
 cd /usr/local/etc
-sudo cp /etc/ssh_host_* .
+sudo cp /etc/ssh/ssh_host_* .
 
 
