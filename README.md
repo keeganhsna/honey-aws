@@ -1,6 +1,5 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=400px height=400px src="https://i.imgur.com/bFQ9FPk.png" alt="Project logo"></a>
 </p>
 
 <h3 align="center">Deploying SSH honeypot using AWS EC2</h3>
@@ -159,7 +158,6 @@ sudo nano auth-passwd.c
 
 add `#include "canohost.h"`
 
- <img width=600px height=400px src="https://i.imgur.com/anYhOEI.png" alt="add include"></a>
 
 and
 
@@ -184,7 +182,6 @@ remote_ip, timeString, authctxt->user, password);
 fclose (logFile);
 }
 ```
- <img width=600px height=400px src="https://i.imgur.com/c94GH35.png" alt="add log"></a>
 
 Press `Ctrl+X`, `Y`, `Enter`
 
