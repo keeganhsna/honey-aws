@@ -1,4 +1,4 @@
-#!/bin/bash;
+#!/bin/bash
 
 sudo ssh-keygen -A
 cd /etc/ssh
