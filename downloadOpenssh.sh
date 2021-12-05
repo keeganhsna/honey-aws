@@ -17,6 +17,7 @@ sudo cp auth-passwd.c auth-passwd.c.orig
 sudo patch -s -p0 < ../../patch.patch
 ./configure
 make
+sudo make install
 sudo cp sshd_config /usr/local/etc
 
 sudo cp /etc/ssh/ssh_host_* /usr/local/etc/
