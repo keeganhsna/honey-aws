@@ -1,5 +1,5 @@
---- sshd_config.bak	2021-12-04 23:42:56.429974578 +0000
-+++ sshd_config	2021-12-04 23:42:12.068245540 +0000
+--- /usr/local/etc/sshd_config.bak	2021-12-04 23:42:56.429974578 +0000
++++ /usr/local/etc/sshd_config	2021-12-04 23:42:12.068245540 +0000
 @@ -10,7 +10,7 @@
  # possible, but leave them commented.  Uncommented options override the
  # default value.
