@@ -3,8 +3,7 @@
 set -ex
 
 sudo ssh-keygen -A
-cd /etc/ssh
-sudo chmod 400 ssh_host_*
+sudo chmod 400 /etc/ssh/ssh_host_*
 
 sudo yum install gcc gcc-c++ autoconf automake zlib-devel openssl-devel patch  make -y
 
