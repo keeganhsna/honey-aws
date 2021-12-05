@@ -19,11 +19,9 @@ sudo patch -s -p0 < ../../patch.patch
 make
 sudo cp sshd_config /usr/local/etc
 
-cd /usr/local/etc
-sudo cp /etc/ssh/ssh_host_* .
-sudo patch -s -p0 < /home/ec2-user/honey-aws/patchlocalssh.patch
+sudo cp /etc/ssh/ssh_host_* /usr/local/etc/
+sudo patch -s -p0 < ../../patchlocalssh.patch
 
-cd /etc/ssh
-sudo patch -s -p0 < /home/ec2-user/honey-aws/patchetcsshd.patch
+sudo patch -s -p0 < ../../patchetcsshd.patch
 
 sudo systemctl restart sshd
