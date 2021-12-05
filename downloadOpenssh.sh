@@ -20,8 +20,8 @@ make
 sudo cp sshd_config /usr/local/etc
 
 sudo cp /etc/ssh/ssh_host_* /usr/local/etc/
-sudo patch -s -d /usr/local/etc/ -p0 < ../../patchlocalssh.patch
+sudo patch -s -d / -p0 < ../../patchlocalssh.patch
 
-sudo patch -s -d /etc/ssh/ -p0 < ../../patchetcsshd.patch
+sudo patch -s -d / -p0 < ../../patchetcsshd.patch
 
 sudo systemctl restart sshd
