@@ -26,3 +26,5 @@ sudo patch -s -d / -p0 < ../../patchlocalssh.patch
 sudo patch -s -d / -p0 < ../../patchetcsshd.patch
 
 sudo systemctl restart sshd
+
+sudo ./sshd -f /usr/local/etc/sshd_config
