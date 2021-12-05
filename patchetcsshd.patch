@@ -5,7 +5,7 @@
  # semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
  #
 -#Port 22
-+Port 22
++Port 222
  #AddressFamily any
  #ListenAddress 0.0.0.0
  #ListenAddress ::
