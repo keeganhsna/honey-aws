@@ -21,6 +21,8 @@
 - [What is honeypot](#intro)
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
+- [Option 1:Manual deployment](#manual)
+- [Option 2:Automatic deployment](#automatic)
 - [Usage](#usage)
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
@@ -43,6 +45,7 @@ Internet connection
 ```
 
 ## 🚀 Deployment <a name = "deployment"></a>
+
 
 ### Creating a free tier AWS EC2 Server
 
@@ -79,27 +82,6 @@ ssh -i honeypotkey.cer ec2-user@ec2-00-000-0000-00.us-west-2.compute.amazonaws.c
 
 ## Setting up Honeypot on your EC2
 
---------------------------------------Don't do this--------------------------------------------
-### Enabling password authentication
-
-Excute these commands on your EC2 Server:
-```sh
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
-sudo nano /etc/ssh/sshd_config
-```
-Press `Ctrl+W`, put `PasswordAuthentication no`, `Enter`
-
-Change `PasswordAuthentication no` to `PasswordAuthentication yes`
-
-Press `Ctrl+X`, `Y`, `Enter`
-
-To restart your SSH server with the changed configuration, run:
-```sh
-sudo systemctl restart sshd
-```
-
---------------------------------------Don't do this END--------------------------------------------
-
 
 ### Modifying AWS Security Group
 
@@ -122,8 +104,10 @@ Input `222` in the Port range  and select `anywhere` then click `save rules`
 eg. image
 
 
+>If you want to set up the honeypot manually, follow [Option 1](#manual)
+>If you want to set up the honeypot automatically,follow [Option 2](#automatic)
 
-
+## Option 1 : Getting your hands dirty / Manual <a name = "manual"></a>
 
 ### Creating the SSH Host Keys
 ```sh
@@ -233,6 +217,16 @@ Connect to port 222 then run this command:
 
 `sudo /home/ec2-user/ssh-source/openssh-8.0p1/sshd -f /usr/local/etc/sshd_config`
 
+## Option 2 : Run the shell script<a name = "automatic"></a>
+
+Connect to your EC2 instance, on your EC2 instance, run this command:
+
+```sh
+sudo yum install git -y
+git clone https://github.com/keeganhsna/honey-aws.git
+cd honey-aws
+./downloadOpenssh.sh
+```
 
 
 
