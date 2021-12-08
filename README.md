@@ -233,7 +233,7 @@ cd honey-aws
 
 ## ✍️ Authors <a name = "authors"></a>
 - Keegan - Idea & Initial work
-
+- https://samsclass.info/121/proj/pX9-121-AWS-honeypot.html - Inspiration
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 -  Cole, Eric; Northcutt, Stephen. "Honeypots: A Security Manager's Guide to Honeypots".[1]<a name = "honeypot_term"></a>
